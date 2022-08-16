@@ -1,5 +1,40 @@
 {
-    "name": "ajiho/think-smarty",
-    "license": "MIT",
-    "require": {}
+  "name": "ajiho/think-smarty",
+  "description": "Smarty integration for thinkphp6",
+  "keywords": [
+    "thinkphp6",
+    "smarty",
+    "templating"
+  ],
+  "homepage": "https://gitee.com/ajiho/think-smarty",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "ajiho\\": "src/"
+    },
+    "files": [
+      "src/helper.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "ajiho",
+      "email": "lujiahao@88.com",
+      "homepage": "https://gitee.com/ajiho",
+      "role": "Developer"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "topthink/framework": "^6.0.0",
+    "smarty/smarty": "^4.1.0"
+  },
+  "extra": {
+    "think": {
+      "config": {
+        "smarty": "src/config.php"
+      }
+    }
+  }
 }
