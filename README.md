@@ -1,3 +1,5 @@
+
+
 # think-smarty
 
 基于tp6封装的smarty模板引擎。
@@ -35,6 +37,11 @@ Tips:phpstorm中`Ctrl+Alt+L` 是格式化代码
 - phpstorm官方内置支持smarty语法高亮，格式化，折叠
 - 麻雀虽小，五脏俱全(没有阉割smarty的功能)
 
+## 更新
+- 20220421 调整编译和缓存文件目录到`runtime`目录,以保持干净的项目目录结构
+- 20220418 调整assign()、display()方法名称为smarty_assign()、smarty_display(),避免和tp内置函数名冲突
+
+
 # 安装
 
 ```
@@ -66,40 +73,54 @@ return [
 
 # 使用
 
-## 演示效果
-
-在`phpstorm`中对着视图文件右键，选择`复制路径/引用`->`来自内容根的路径`然后粘贴
-到`smarty_display()`方法中即可
-![图片备注](https://img-blog.csdnimg.cn/2921f4006d5a41119b21046c67d98226.gif)
-
-开启调试效果
-
-![图片备注](https://img-blog.csdnimg.cn/aa57dcb049b949ed81e2f37cb34375e9.gif)
-
-### 更新
-
-- 20220421 调整编译和缓存文件目录到`runtime`目录,以保持干净的项目目录结构
-- 20220418 调整assign()、display()方法名称为smarty_assign()、smarty_display()
-
-
 ## 开启think-smarty
-think-smarty功能默认是没有开启的（API应用通常不需要使用think-smarty），
-如果你需要使用think-smarty，需要在全局的中间件定义文件中加上下面的中间件定义：
-
-
-
+用法和tp6自带的`think\middleware\SessionInit`中间件一样，需要自己开启，且`api`应用通常也是不需要模板引擎的。
 ```
 \ajiho\middleware\SmartyInit::class
 ```
 
-Tips:如果是多应用模式，并且你只是用于部分应用，那么也可以在应用中间件定义文件中单独开启
+中间件注册后系统会自动按照`smarty.php`配置的参数自动初始化`think-smarty`。
 
 
-## think-smarty初始化
-系统会自动按照`smarty.php`配置的参数自动初始化`think-smarty`。
+## phpstorm设置
+
+然后根据配置文件`smarty.php`对`phpstorm`进行相应的设置,就可以舒适的开发啦
+
+`ctrl+alt+s`，搜索`smarty`就可以打开如下设置面板
 
 
-### 默认支持的修改的配置
+![图片备注](https://img-blog.csdnimg.cn/36d3d5617e65447c9d80a3a0fbe1a8d1.png)
+
+注意:根据设置好后，要关闭项目重新打开phpstorm才会生效。
+
+## 演示效果
+### 基本使用演示
+在`phpstorm`中对着视图文件右键，选择`复制路径/引用`->`来自内容根的路径`然后粘贴
+到`smarty_display()`方法中即可
+
+![图片备注](https://img-blog.csdnimg.cn/2921f4006d5a41119b21046c67d98226.gif)
+
+
+### 开启调试效果
+
+根据`.env`文件`APP_DEBUG = true`即可开启调试模式。
+
+为什么不直接使用thinkphp的异常接管？因为在某些特殊的情况下你开启tp框架的DEBUG调试，它依然检查不出
+错误,think-smarty使用自己的报错处理可以捕获任何错误。
+
+![图片备注](https://img-blog.csdnimg.cn/aa57dcb049b949ed81e2f37cb34375e9.gif)
+
+# 助手函数
+| 函数名 | 描述 |
+|--|--|
+| smarty | 返回smarty对象,可以根据smarty官方文档调用一些方法 |
+| smarty_assign | 给视图文件赋值 |
+| smarty_fetch | 返回一个模板输出的内容(HTML代码)，而不是直接显示出来 |
+| smarty_display | 返回一个response对象 |
+
+# 配置说明
+
+## 默认支持的修改的配置
 
 | 参数 | 描述 |
 |--|--|
@@ -111,7 +132,7 @@ Tips:如果是多应用模式，并且你只是用于部分应用，那么也可
 | right_delimiter | 模板引擎右边标记 |
 
 
-### think-smarty其它配置说明
+## think-smarty其它配置说明
 
 | 参数 | 路径 | 说明 |
 |--|--|--|
@@ -121,9 +142,9 @@ Tips:如果是多应用模式，并且你只是用于部分应用，那么也可
 | 编译目录 | /runtime/smarty/compile | 当调用`smarty_display`方法时会自动生成编译文件 |
 | 缓存目录 | /runtime/smarty/cache | 开启缓存时会自动生成缓存文件 |
 
-### 对编译,缓存,配置,插件目录的一些总体说明
+## 对编译,缓存,配置,插件目录的一些总体说明
 
-#### 配置,插件目录
+### 配置,插件目录
 
 如果`\ajiho\middleware\SmartyInit::class`初始化中间件被挂载到全局中间件定义文件中,如果此时
 在`smarty.php`配置文件中配置了`prefix`参数，那么会在配置和插件目录上自动加上`prefix`前缀以示区分
@@ -133,7 +154,7 @@ Tips:如果是多应用模式，并且你只是用于部分应用，那么也可
 但是我们前面讲到过，虽然是封装的smarty但是不会阉割它的功能，毕竟有剑不用和没有剑是两回事，而且也是对
 smarty忠实用户的一种负责。
 
-#### 编译,缓存目录
+### 编译,缓存目录
 
 同样的这两个目录也根据你初始化位置的不同,会在不同的目录生成编译和缓存文件,当挂载到
 应用中间件时，它会在上面的基础上加上应用名以示区分,这样的设计是避免多应用开发时生成的缓存、编译文件
@@ -152,45 +173,9 @@ smarty忠实用户的一种负责。
 /runtime/home/smarty/cache
 ~~~
 
+# 反馈
 
-## phpstorm设置
-
-然后根据配置文件`smarty.php`对`phpstorm`进行相应的设置,就可以舒适的开发啦
-
-![图片备注](https://img-blog.csdnimg.cn/36d3d5617e65447c9d80a3a0fbe1a8d1.png)
-
-注意:根据设置好后，要关闭项目重新打开phpstorm才会生效。
-
-
-
-## 助手函数
-| 函数名 | 描述 |
-|--|--|
-| smarty | 返回smarty对象,可以根据smarty官方文档调用一些方法 |
-| smarty_assign | 给视图文件赋值 |
-| smarty_display | 返回一个response对象 |
-
-注意:`smarty_display()`返回的是一个response对象，在某些特殊情况下你想要获取返回的纯静态html字符串,可以
-调用response对象的`getData()`方法
-
-```php
-$htmlStr = smarty_display('app/admin/view/mail/addUser.tpl')->getData();
-//...
-```
-
-
-## 关于调试说明
-
-根据`.env`文件`APP_DEBUG = true`即可开启调试模式
-
-为什么不直接使用thinkphp的异常接管？因为在某些特殊的情况下你开启tp框架的DEBUG调试，它依然检查不出
-错误,think-smarty使用自己的报错处理可以捕获任何错误。
-
-
-
-
-
-
+开发过程发现有任何问题，欢迎大家提交Issue。
 
 
 

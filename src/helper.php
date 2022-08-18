@@ -1,13 +1,15 @@
 <?php
 
 
+use ajiho\Smarty;
+
 if (!function_exists('smarty')) {
     function smarty()
     {
         try {
             return app('smarty');
         } catch (\Exception $e) {
-            echo \ajiho\Smarty::error($e);
+            echo Smarty::error($e);
             die();
         }
     }
@@ -21,12 +23,25 @@ if (!function_exists('smarty_assign')) {
         try {
             return app('smarty')->assign($tpl_var, $value, $nocache);
         } catch (\Exception $e) {
-            echo \ajiho\Smarty::error($e);
+            echo Smarty::error($e);
             die();
         }
 
     }
+}
 
+
+if (!function_exists('smarty_fetch')) {
+
+    function smarty_fetch($template = null, $cache_id = null, $compile_id = null, $parent = null)
+    {
+        try {
+            return app('smarty')->fetch($template, $cache_id, $compile_id, $parent);
+        } catch (\Exception $e) {
+            echo Smarty::error($e);
+            die();
+        }
+    }
 }
 
 
@@ -37,7 +52,7 @@ if (!function_exists('smarty_display')) {
         try {
             return app('smarty')->display($template, $cache_id, $compile_id, $parent);
         } catch (\Exception $e) {
-            echo \ajiho\Smarty::error($e);
+            echo Smarty::error($e);
             die();
         }
     }
