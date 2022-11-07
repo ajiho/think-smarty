@@ -31,6 +31,7 @@ phpstorm中格式化html代码时会各种代码错乱和报错,开发起来特�
 - think-smarty会自动根据smarty官方的更新而下载最新的稳定版
 - 简化手动集成的繁琐步骤、配置，开箱即用
 - think-smarty麻雀虽小,五脏俱全(封装但没有阉割smarty的功能)
+- thinkphp框架从6开始官方默认就不集成模板引擎(think-smarty是个非常不错的选择)
 
 
 # 安装
@@ -87,7 +88,7 @@ return [
 
 `ctrl+alt+s`，搜索`smarty`就可以打开如下设置面板
 
-![图片备注](https://img-blog.csdnimg.cn/36d3d5617e65447c9d80a3a0fbe1a8d1.png)
+![图片备注](https://img-blog.csdnimg.cn/f46111d62edd4410af272b875437056f.png)
 
 注意:设置后要重启phpstorm才会生效
 
@@ -107,9 +108,12 @@ return [
 
 
 ## smarty模板继承
-
+https://www.smarty.net/docs/zh_CN/advanced.features.template.inheritance.tpl
 
 ## smarty常用的判断、循环等
+
+https://www.smarty.net/docs/zh_CN/language.function.if.tpl
+https://www.smarty.net/docs/zh_CN/language.function.foreach.tpl
 
 ## smarty从配置文件中读取变量
 
@@ -117,7 +121,7 @@ https://www.smarty.net/docs/zh_CN/language.config.variables.tpl
 
 
 ## smarty编写插件
-
+https://www.smarty.net/docs/zh_CN/plugins.tpl
 
 更多例子:
 - [将kindeditor在线编辑器制作成smarty插件](http://t.zoukankan.com/shaoyikai-p-4283645.html)
