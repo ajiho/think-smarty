@@ -107,13 +107,26 @@ return [
 ## 基本演示
 
 启用smarty
+
 ![图片备注](https://img-blog.csdnimg.cn/fa09fa71d4484c45839b97734be96cd4.png)
+
 直接输出视图
+
 ![图片备注](https://img-blog.csdnimg.cn/bbe8ccb1453d4e21958f6a2a81f41c67.png)
+
 视图页面
+
 ![图片备注](https://img-blog.csdnimg.cn/711526df431440bcadc30349d272c688.png)
+
 效果
+
 ![图片备注](https://img-blog.csdnimg.cn/72712a7d16af4d308398c5e9bed47811.png)
+
+当随便输一个不存在的模板时,框架会报错(think-smarty1.0.x使用的是自己的异常报错)
+
+![图片备注](https://img-blog.csdnimg.cn/5fb01b9eefed4d57a43cd5811459a450.png)
+![图片备注](https://img-blog.csdnimg.cn/d612aaa13c4049cbb5a8edb40a96197f.png)
+
 
 ## smarty模板继承
 https://www.smarty.net/docs/zh_CN/advanced.features.template.inheritance.tpl
