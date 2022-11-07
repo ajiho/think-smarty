@@ -4,7 +4,6 @@
 namespace ajiho\middleware;
 
 use think\facade\Config;
-use ajiho\Smarty;
 use think\facade\App;
 
 class SmartyInit
@@ -24,8 +23,9 @@ class SmartyInit
         //配置和插件
         $configs_dir = $app_path . 'smarty/configs/';
         $plugins_dir = $app_path . 'smarty/plugins/';
+
         //创建smarty对象
-        $smarty = new Smarty();
+        $smarty = new \Smarty();
         //模板基本目录
         $smarty->setTemplateDir($templateDir);
         $smarty->caching = Config::get('smarty.caching');
