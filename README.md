@@ -7,19 +7,9 @@
 - [smarty-github仓库](https://github.com/smarty-php/smarty)
 
 
-## think-smarty的简介
+## 为什么要封装think-smarty
 
-- smarty是php模板引擎的鼻祖
-- smarty一直有人在进行维护(支持php8.x)
-- smarty相对于市面上的其它php模板引擎(Blade、Twig、ThinkTemplate)效率更高
-- 知名度高,各大编辑器、IDE都有相对应的插件支持,phpstorm官方内置支持smarty语法高亮，格式化，折叠
-- think-smarty会自动根据smarty官方的更新而下载最新的稳定版
-- 简化手动集成的繁琐步骤、配置，开箱即用
-- think-smarty麻雀虽小,五脏俱全(封装但没有阉割smarty的功能)
-
-## 为什么要使用think-smarty
-
-虽然现在流行前后端分离，但是有时难免要用一下mvc这种开发方式做一些项目,但是thinkphp的模板引擎(ThinkTemplate)在
+虽然现在流行前后端分离，但是有时难免要用一下mvc这种开发方式做一些小项目,但是thinkphp的模板引擎(ThinkTemplate)在
 phpstorm中格式化html代码时会各种代码错乱和报错,开发起来特别闹心。
 
 无图无真相
@@ -32,6 +22,15 @@ phpstorm中格式化html代码时会各种代码错乱和报错,开发起来特�
 
 ![图片备注](https://img-blog.csdnimg.cn/cd8fb7b896f043ff9b48a81c308b3586.gif)
 
+## think-smarty的优点
+
+- smarty是php模板引擎的鼻祖
+- smarty一直有人在进行维护(支持php8.x)
+- smarty相对于市面上的其它php模板引擎(Blade、Twig、ThinkTemplate)效率更高
+- 知名度高,各大编辑器、IDE都有相对应的插件支持,phpstorm官方内置支持smarty语法高亮，格式化，折叠
+- think-smarty会自动根据smarty官方的更新而下载最新的稳定版
+- 简化手动集成的繁琐步骤、配置，开箱即用
+- think-smarty麻雀虽小,五脏俱全(封装但没有阉割smarty的功能)
 
 
 # 安装
