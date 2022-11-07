@@ -2,11 +2,9 @@
 
 基于thinkphp6封装的smarty模板引擎。
 
-
 - [smarty-github仓库](https://github.com/smarty-php/smarty)
 - [smarty文档](https://smarty-php.github.io/smarty/)
 - [smarty中文文档](https://www.smarty.net/docs/zh_CN/)
-
 
 ## smarty的简介
 
@@ -37,7 +35,6 @@ Tips:phpstorm中`Ctrl+Alt+L` 是格式化代码
 - 简化手动集成的繁琐步骤、配置，开箱即用
 - phpstorm官方内置支持smarty语法高亮，格式化，折叠
 
-
 # 安装
 
 ```
@@ -65,6 +62,15 @@ return [
 ];
 ```
 
+# 主要方法
+
+| 函数名 | 描述 |
+|--|--|
+| smarty | 返回smarty对象,可以根据smarty官方文档调用一些方法 |
+| smarty_assign | 给视图文件赋值 |
+| smarty_fetch | 返回一个模板输出的内容(HTML代码)，而不是直接显示出来 |
+| smarty_display | 返回一个response对象 |
+
 # 使用
 
 ## 开启think-smarty
@@ -84,17 +90,11 @@ return [
 
 ![图片备注](https://img-blog.csdnimg.cn/36d3d5617e65447c9d80a3a0fbe1a8d1.png)
 
-注意:根据设置好后，要关闭项目重新打开phpstorm才会生效。
+注意:设置后要重启phpstorm才会生效
 
 
-# 助手函数
+## 效果演示
 
-| 函数名 | 描述 |
-|--|--|
-| smarty | 返回smarty对象,可以根据smarty官方文档调用一些方法 |
-| smarty_assign | 给视图文件赋值 |
-| smarty_fetch | 返回一个模板输出的内容(HTML代码)，而不是直接显示出来 |
-| smarty_display | 返回一个response对象 |
 
 # 反馈
 
