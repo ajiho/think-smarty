@@ -15,6 +15,7 @@
 - 知名度高,各大编辑器、IDE都有相对应的插件支持,phpstorm官方内置支持smarty语法高亮，格式化，折叠
 - think-smarty会自动根据smarty官方的更新而下载最新的稳定版
 - 简化手动集成的繁琐步骤、配置，开箱即用
+- think-smarty麻雀虽小,五脏俱全(封装但没有阉割smarty的功能)
 
 ## 为什么要使用think-smarty
 
@@ -69,6 +70,8 @@ return [
 | smarty_fetch | 返回一个模板输出的内容(HTML代码)，而不是直接显示出来 |
 | smarty_display | 返回一个response对象 |
 
+
+
 # 使用
 
 ## 开启think-smarty
@@ -91,7 +94,19 @@ return [
 注意:设置后要重启phpstorm才会生效
 
 
-## 效果演示
+## 基本演示
+
+
+
+
+## smarty从配置文件中读取变量
+
+https://www.smarty.net/docs/zh_CN/language.config.variables.tpl
+
+
+## smarty插件说明
+
+
 
 
 # 反馈
