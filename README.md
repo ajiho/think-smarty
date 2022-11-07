@@ -106,6 +106,14 @@ return [
 
 ## 基本演示
 
+启用smarty
+![图片备注](https://img-blog.csdnimg.cn/fa09fa71d4484c45839b97734be96cd4.png)
+直接输出视图
+![图片备注](https://img-blog.csdnimg.cn/bbe8ccb1453d4e21958f6a2a81f41c67.png)
+视图页面
+![图片备注](https://img-blog.csdnimg.cn/711526df431440bcadc30349d272c688.png)
+效果
+![图片备注](https://img-blog.csdnimg.cn/72712a7d16af4d308398c5e9bed47811.png)
 
 ## smarty模板继承
 https://www.smarty.net/docs/zh_CN/advanced.features.template.inheritance.tpl
