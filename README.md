@@ -71,6 +71,27 @@ return [
 | smarty_display | 返回一个response对象 |
 
 
+# smarty配置说明
+
+| 配置项 | 路径 |
+|--|--|
+| 模板目录 | app_path() . 'view/' |
+| 缓存目录 | runtime_path() . 'smarty/cache/' |
+| 编译目录 | runtime_path() . 'smarty/compile/' |
+| 插件目录 | app_path() . 'smarty/plugins/' |
+| 配置目录 | app_path() . 'smarty/configs/' |
+
+
+# phpstorm设置
+
+然后根据配置文件`smarty.php`对`phpstorm`进行相应的设置,就可以舒适的开发啦
+
+`ctrl+alt+s`，搜索`smarty`就可以打开如下设置面板
+
+![图片备注](https://img-blog.csdnimg.cn/36d3d5617e65447c9d80a3a0fbe1a8d1.png)
+
+注意:设置后要重启phpstorm才会生效
+
 
 # 使用
 
@@ -83,29 +104,25 @@ return [
 \ajiho\middleware\SmartyInit::class
 ```
 
-## phpstorm设置(重要)
-
-然后根据配置文件`smarty.php`对`phpstorm`进行相应的设置,就可以舒适的开发啦
-
-`ctrl+alt+s`，搜索`smarty`就可以打开如下设置面板
-
-![图片备注](https://img-blog.csdnimg.cn/36d3d5617e65447c9d80a3a0fbe1a8d1.png)
-
-注意:设置后要重启phpstorm才会生效
-
-
 ## 基本演示
 
 
+## smarty模板继承
 
+
+## smarty常用的判断、循环等
 
 ## smarty从配置文件中读取变量
 
 https://www.smarty.net/docs/zh_CN/language.config.variables.tpl
 
 
-## smarty插件说明
+## smarty编写插件
 
+
+更多例子:
+- [将kindeditor在线编辑器制作成smarty插件](http://t.zoukankan.com/shaoyikai-p-4283645.html)
+- [编写Smarty插件在模板中直接加载数据的详细介绍](https://www.jb51.net/article/39106.htm)
 
 
 
