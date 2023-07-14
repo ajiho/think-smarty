@@ -16,22 +16,22 @@ phpstorm中格式化html代码时会各种代码错乱和报错,开发起来特�
 
 ### ThinkTemplate
 
-![图片备注](https://img-blog.csdnimg.cn/c5d8e0b4318b422e9b7dda484d824727.gif)
+![图片备注](img/think-template.gif)
 
 ### think-smarty
 
-![图片备注](https://img-blog.csdnimg.cn/cd8fb7b896f043ff9b48a81c308b3586.gif)
+![图片备注](img/think-smarty.gif)
 
 ## think-smarty的优点
 
-- smarty是php模板引擎的鼻祖
-- smarty一直有人在进行维护(支持php8.x)
+- smarty 是一款历史较长、经过多年发展和优化的模板引擎
+- smarty由于长期稳定的使用和开发，Smarty 可以提供较高的稳定性和可靠性
 - smarty相对于市面上的其它php模板引擎(Blade、Twig、ThinkTemplate)效率更高
-- 知名度高,各大编辑器、IDE都有相对应的插件支持,phpstorm官方内置支持smarty语法高亮，格式化，折叠
+- smarty知名度高,各大编辑器、IDE都有相对应的插件支持,phpstorm官方内置支持smarty语法高亮，格式化，折叠
 - think-smarty会自动根据smarty官方的更新而下载最新的稳定版
-- 简化手动集成的繁琐步骤、配置，开箱即用
+- think-smarty简化手动集成的繁琐步骤、配置，开箱即用
 - think-smarty麻雀虽小,五脏俱全(封装但没有阉割smarty的功能)
-- thinkphp框架从6开始官方默认就不集成模板引擎(think-smarty是个非常不错的选择)
+- thinkphp框架从6.x开始官方默认就不集成模板引擎,意味着你可以安装自己喜欢的模板引擎(think-smarty是个不错的选择)
 
 
 # 安装
@@ -88,7 +88,7 @@ return [
 
 `ctrl+alt+s`，搜索`smarty`就可以打开如下设置面板
 
-![图片备注](https://img-blog.csdnimg.cn/f46111d62edd4410af272b875437056f.png)
+![图片备注](img/phpstorm-setting.png)
 
 注意:设置后要重启phpstorm才会生效
 
@@ -108,46 +108,24 @@ return [
 
 启用smarty
 
-![图片备注](https://img-blog.csdnimg.cn/fa09fa71d4484c45839b97734be96cd4.png)
+![图片备注](img/install.png)
 
 直接输出视图
 
-![图片备注](https://img-blog.csdnimg.cn/bbe8ccb1453d4e21958f6a2a81f41c67.png)
+![图片备注](img/bbe8ccb1453d4e21958f6a2a81f41c67.png)
 
 视图页面
 
-![图片备注](https://img-blog.csdnimg.cn/711526df431440bcadc30349d272c688.png)
+![图片备注](img/711526df431440bcadc30349d272c688.png)
 
-效果
+输出效果
 
-![图片备注](https://img-blog.csdnimg.cn/72712a7d16af4d308398c5e9bed47811.png)
+![图片备注](img/72712a7d16af4d308398c5e9bed47811.png)
 
-当随便输一个不存在的模板时,框架会报错(think-smarty1.0.x使用的是自己的异常报错)
+报错
 
-![图片备注](https://img-blog.csdnimg.cn/5fb01b9eefed4d57a43cd5811459a450.png)
-![图片备注](https://img-blog.csdnimg.cn/d612aaa13c4049cbb5a8edb40a96197f.png)
-
-
-## smarty模板继承
-https://www.smarty.net/docs/zh_CN/advanced.features.template.inheritance.tpl
-
-## smarty常用的判断、循环等
-
-https://www.smarty.net/docs/zh_CN/language.function.if.tpl
-https://www.smarty.net/docs/zh_CN/language.function.foreach.tpl
-
-## smarty从配置文件中读取变量
-
-https://www.smarty.net/docs/zh_CN/language.config.variables.tpl
-
-
-## smarty编写插件
-https://www.smarty.net/docs/zh_CN/plugins.tpl
-
-更多例子:
-- [将kindeditor在线编辑器制作成smarty插件](http://t.zoukankan.com/shaoyikai-p-4283645.html)
-- [编写Smarty插件在模板中直接加载数据的详细介绍](https://www.jb51.net/article/39106.htm)
-
+![图片备注](img/5fb01b9eefed4d57a43cd5811459a450.png)
+![图片备注](img/d612aaa13c4049cbb5a8edb40a96197f.png)
 
 
 # 反馈
