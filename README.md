@@ -16,11 +16,11 @@ phpstorm中格式化html代码时会各种代码错乱和报错,开发起来特�
 
 ### ThinkTemplate
 
-![图片备注](img/think-template.gif)
+![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/think-template.gif)
 
 ### think-smarty
 
-![图片备注](img/think-smarty.gif)
+![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/think-smarty.gif)
 
 ## think-smarty的优点
 
@@ -88,7 +88,7 @@ return [
 
 `ctrl+alt+s`，搜索`smarty`就可以打开如下设置面板
 
-![图片备注](img/phpstorm-setting.png)
+![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/phpstorm-setting.png)
 
 注意:设置后要重启phpstorm才会生效
 
@@ -108,24 +108,24 @@ return [
 
 启用smarty
 
-![图片备注](img/install.png)
+![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/install.png)
 
 直接输出视图
 
-![图片备注](img/bbe8ccb1453d4e21958f6a2a81f41c67.png)
+![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/bbe8ccb1453d4e21958f6a2a81f41c67.png)
 
 视图页面
 
-![图片备注](img/711526df431440bcadc30349d272c688.png)
+![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/711526df431440bcadc30349d272c688.png)
 
 输出效果
 
-![图片备注](img/72712a7d16af4d308398c5e9bed47811.png)
+![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/72712a7d16af4d308398c5e9bed47811.png)
 
 报错
 
-![图片备注](img/5fb01b9eefed4d57a43cd5811459a450.png)
-![图片备注](img/d612aaa13c4049cbb5a8edb40a96197f.png)
+![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/5fb01b9eefed4d57a43cd5811459a450.png)
+![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/d612aaa13c4049cbb5a8edb40a96197f.png)
 
 
 # 反馈
