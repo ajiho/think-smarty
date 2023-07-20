@@ -195,7 +195,6 @@ class Index extends BaseController
 
 
 
-
 # 模板渲染
 
 为了更好的理解`think-smarty`设计的目录结构，我们先看一看,`Smarty`的原生集成
@@ -433,6 +432,52 @@ smarty_display('file:G:/templates/index.tpl');
 $content = '<{$name}>-<{$email}>';
 smarty_display('string:'.$content,['name'=>'ajiho','email'=>'lujiahao@88.com']);
 ```
+
+# 输出替换
+
+如果是tp5的用户在原本的thinkphp自带的模板引擎可能会用到如下配置进行
+全局的静态资源的路径的替换。
+
+```php
+'tpl_replace_string'  =>  [
+    '__STATIC__'=>'/static',
+	'__JS__' => '/static/javascript',
+]
+```
+
+那么在think-smarty中实现的方法特别多，你可以直接在基础控制器进行全局变量的
+赋值，也可以利用smarty的过滤器,也可以使用smarty的配置功能
+
+这里推荐使用smarty的配置功能
+
+```
+├─view                     smarty工作空间目录
+│   ├─templates            smarty模板目录
+│   │  ├─user              用户模块(示例)
+│   │  │ └─index.tpl       用户列表模板文件(示例)
+│   ├─configs              smarty配置目录
+│   │  ├─static_path.conf  
+```
+
+static_path.conf的内容如下
+
+```
+__STATIC__ = '/static'
+__JS__  = '/static/javascript'
+```
+
+在tpl模板中使用方式有两种方法来读取配置
+```php
+// 加载配置
+<{ config_load file="static_path.conf" }>
+
+//使用配置,方式一
+<{#__STATIC__#}>
+//使用配置,方式二
+<{ $smarty.config.__STATIC__ }>
+```
+
+
 
 # 反馈
 
