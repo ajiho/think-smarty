@@ -6,7 +6,8 @@ use think\App;
 use think\Exception;
 use think\Response;
 use think\facade\Config;
-class ThinkSmarty extends \Smarty
+use Smarty;
+class ThinkSmarty extends Smarty
 {
 
     private $app;
@@ -24,9 +25,9 @@ class ThinkSmarty extends \Smarty
         // 模板引擎右边标记
         'right_delimiter' => '}>',
         // Smarty工作空间目录名称(该目录用于存放模板目录、插件目录、配置目录)
-        'workspace_dir_name' => 'templates',
+        'workspace_dir_name' => 'view',
         // 模板目录名
-        'template_dir_name' => 'tpl',
+        'template_dir_name' => 'templates',
         // 插件目录名
         'plugins_dir_name' => 'plugins',
         // 配置目录名
@@ -82,7 +83,6 @@ class ThinkSmarty extends \Smarty
             $path = $this->app->getRootPath() . $this->config['workspace_dir_name'] . DIRECTORY_SEPARATOR . ($appName ? $appName . DIRECTORY_SEPARATOR : '');
         }
 
-
         //保存当前路径
         $this->config['templates_path'] = $path . $this->config['template_dir_name'];
         $this->config['configs_path'] = $path . $this->config['config_dir_name'];
@@ -94,20 +94,24 @@ class ThinkSmarty extends \Smarty
         //设置配置路径
         $this->setConfigDir($this->config['configs_path']);
         //插件目录
-        $this->addPluginsDir($this->config['plugins_path']);
-
-        //获取当前tpl的绝对路径
-        $template = $this->parseTemplate($template);
+        $this->setPluginsDir($this->config['plugins_path']);
 
 
-
-        // 模板不存在 抛出异常
-        if (!is_file($template)) {
-            throw new Exception('think-smarty:模板文件' . $template . '不存在');
+        if (strpos($template, ':') === false) { //说明没有明确指定资源类型
+            $template = $this->parseTemplate($template);
+            //模板不存在 抛出异常
+            if (!is_file($template)) {
+                throw new Exception('think-smarty:Unable to load template ' . $template);
+            }
         }
 
-        // 调用父类的 fetch() 方法
-        return parent::fetch($template, $cacheId, $compileId, $parent);
+        try {
+            // 调用父类的 fetch() 方法
+            return parent::fetch($template, $cacheId, $compileId, $parent);
+        } catch (\Exception $e) {
+            throw new Exception('think-smarty:' . $e->getMessage());
+        }
+
     }
 
 

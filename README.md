@@ -1,18 +1,17 @@
 # think-smarty
 
-基于thinkphp6封装的smarty模板引擎。
+基于thinkphp6封装的smarty模板引擎
 
 - [smarty官网文档](https://www.smarty.net/docs/zh_CN/)
 - [smarty-github文档](https://smarty-php.github.io/smarty/)
 - [smarty-github仓库](https://github.com/smarty-php/smarty)
 
-
 ## 为什么要封装think-smarty
 
-虽然现在流行前后端分离，但是有时难免要用一下mvc这种开发方式做一些小项目,但是thinkphp的模板引擎(ThinkTemplate)在
-phpstorm中格式化html代码时会各种代码错乱和报错,开发起来特别闹心。
+虽然现在流行前后端分离，但是有时难免要用一下mvc这种开发方式做一些小项目,但是think
+php的模板引擎([ThinkTemplate](https://www.kancloud.cn/manual/think-template/1286403))
+在`phpstorm`中格式化html代码时会各种代码错乱和报错,开发起来特别闹心
 
-无图无真相
 
 ### ThinkTemplate
 
@@ -24,15 +23,13 @@ phpstorm中格式化html代码时会各种代码错乱和报错,开发起来特�
 
 ## think-smarty的优点
 
-- smarty 是一款历史较长、经过多年发展和优化的模板引擎
-- smarty由于长期稳定的使用和开发，Smarty 可以提供较高的稳定性和可靠性
-- smarty相对于市面上的其它php模板引擎(Blade、Twig、ThinkTemplate)效率更高
-- smarty知名度高,各大编辑器、IDE都有相对应的插件支持,phpstorm官方内置支持smarty语法高亮，格式化，折叠
+- smarty是一款历史较长、经过多年发展和优化的模板引擎
+- smarty是目前市面上知名的三大php模板引擎之一(Smarty、Twig、Blade)
+- smarty由于长期稳定的使用和开发，Smarty可以提供较高的稳定性和可靠性
+- **phpstorm官方内置支持smarty语法高亮，格式化，折叠**
 - think-smarty会自动根据smarty官方的更新而下载最新的稳定版
 - think-smarty简化手动集成的繁琐步骤、配置，开箱即用
-- think-smarty麻雀虽小,五脏俱全(封装但没有阉割smarty的功能)
 - thinkphp框架从6.x开始官方默认就不集成模板引擎,意味着你可以安装自己喜欢的模板引擎(think-smarty是个不错的选择)
-
 
 # 安装
 
@@ -48,39 +45,39 @@ composer require ajiho/think-smarty
 <?php
 
 return [
-    // 开启缓存
-    'caching' => false,
-    // 缓存周期(开启缓存生效)
-    'cache_lifetime' => 120,
-    // 空格策略
-    'auto_literal' => false,
     // 模板引擎左边标记
     'left_delimiter' => '<{',
     // 模板引擎右边标记
     'right_delimiter' => '}>',
+    // 空格策略
+    'auto_literal' => false,
+    // 开启缓存
+    'caching' => false,
+    // 缓存周期(开启缓存生效) 单位:秒
+    'cache_lifetime' => 120,
+    // Smarty工作空间目录名称(该目录用于存放模板目录、插件目录、配置目录)
+    'workspace_dir_name' => 'view',
+    // 模板目录名
+    'template_dir_name' => 'templates',
+    // 插件目录名
+    'plugins_dir_name' => 'plugins',
+    // 配置目录名
+    'config_dir_name' => 'configs',
+    // 模板编译目录名
+    'compile_dir_name' => 'templates_compile',
+    // 模板缓存目录名
+    'cache_dir_name' => 'templates_cache',
 ];
 ```
 
 # 主要方法
 
-| 函数名 | 描述 |
-|--|--|
-| smarty | 返回smarty对象,可以根据smarty官方文档调用一些方法 |
-| smarty_assign | 给视图文件赋值 |
-| smarty_fetch | 返回一个模板输出的内容(HTML代码)，而不是直接显示出来 |
-| smarty_display | 返回一个response对象 |
-
-
-# smarty配置说明
-
-| 配置项 | 路径 |
-|--|--|
-| 模板目录 | app_path() . 'view/' |
-| 缓存目录 | runtime_path() . 'smarty/cache/' |
-| 编译目录 | runtime_path() . 'smarty/compile/' |
-| 插件目录 | app_path() . 'smarty/plugins/' |
-| 配置目录 | app_path() . 'smarty/configs/' |
-
+| 函数名            | 描述                                 |
+|----------------|------------------------------------|
+| smarty         | 返回smarty对象(可用于调用smarty实例的一些属性和方法等) |
+| smarty_assign  | 给视图文件赋值                            |
+| smarty_fetch   | 返回一个模板解析后的字符串                      |
+| smarty_display | 直接输出模板到客户端                         |
 
 # phpstorm设置
 
@@ -92,41 +89,350 @@ return [
 
 注意:设置后要重启phpstorm才会生效
 
+# 模板变量
 
-# 使用
+## 模板赋值
 
-## 开启think-smarty
+模板中的变量（除了一些系统变量外）必须先进行模板赋值后才能使用，
+可以使用smarty实例对象的`assign`方法进行全局模板变量赋值，`think-smarty`提供了
+一个助手函数`smarty_assign`
 
-用法和tp6自带的`think\middleware\SessionInit`中间件一样，需要自己开启，
-且`api`应用通常也是不需要模板引擎的。
+```php
+<?php
+namespace app\index\controller;
+
+class Index
+{
+    public function index()
+    {   
+        
+        // 给模板赋值
+        // smarty()->assign('name','think-smarty');
+        // smarty()->assign('email','lujiahao@88.com');
+        
+        // 使用助手函数
+        // smarty_assign('name','think-smarty');
+        // smarty_assign('email','lujiahao@88.com');
+        
+        // 或者批量赋值
+        smarty_assign([
+            'name'  => 'think-smarty',
+            'email' => 'lujiahao@88.com'
+        ]);
+        
+        
+        // 模板输出
+        return smarty_fetch('index.tpl');
+    }
+}
+```
+
+
+## 保留变量
+
+`Smarty`提供了一个保留变量`$smarty`,可以用于一些原生php的常用的系统变量
+
+```php
+<{ $smarty.const.PHP_VERSION }>
+<{ $smarty.server.SERVER_NAME }>
+<{ $smarty.get.page|default:'get' }>
+<{ $smarty.post.page|default:'post' }>
+<{ $smarty.server.SCRIPT_NAME }>
+<{ $smarty.env.PATH|default:'env' }>
+<{ $smarty.session.user_id|default:'session' }>
+<{ $smarty.cookies.name|default:'cookies' }>
+<{ $smarty.request.username|default:'from merged get/post/cookies/server/env' }>
+```
+
+但是对于thinkphp框架我们知道它的`SESSION`或者一些路由参数，我们用原生的php
+是获取不到的，必须要用框架的方法才能获取，因此`think-smarty`也保留了一个
+全局变量`$think`(相当于应用实例),我们可以用它来快速获取到框架相关的东西
+
+```php
+<{ $think->request->param('name') }>
+<{ $think->request->root() }>
+<{ $think->request->root(true) }>
+<{ $think->request->patch('name') }>
+<{ $think->request->controller() }>
+<{ $think->request->action() }>
+<{ $think->request->ext() }>
+<{ $think->request->host() }>
+<{ $think->request->ip() }>
+<{ $think->request->header('accept-encoding') }>
+<{ $think->config->get('app.default_app') }>
+<{ $think->config->get('app.default_timezone') }>
+<{ $think->lang->get('require_name') }>
+<{ $think->session->get('index_user.name') }>
+<{ $think->http->getName() }>
+<{ $think->getRootPath() }>
+```
+
+它的原理是其实就是类似下面的操作
+
+```php
+<?php
+declare (strict_types=1);
+
+namespace app\admin\controller;
+
+use app\BaseController;
+use think\App;
+
+class Index extends BaseController
+{
+    public function index(App $app)
+    {
+
+        smarty_assign('think', $app);
+        smarty_display('index.tpl');
+    }
+}
+```
+
+因此你要是想对你的应用进行全局变量的赋值,可以创建一个BaseController控制器在构
+造函数中使用`smarty_assign`方法赋值即可
+
+
+
+
+
+# 模板渲染
+
+为了更好的理解`think-smarty`设计的目录结构，我们先看一看,`Smarty`的原生集成
+
+```php
+include './smarty/Smarty.class.php';//引入smarty类
+$smarty = new Smarty();//实例化smarty
+
+//五配置 两方法
+$smarty->setLeftDelimiter("{");  //左定界符
+$smarty->setRightDelimiter("}"); //右定界符
+$smarty->setTemplateDir("/path/templates");  //.tpl模板目录
+$smarty->setCompileDir("/path/templates_c"); //模板编译生成的文件
+$smarty->setCacheDir("/path/cache"); //缓存目录
+$smarty->setConfigDir("/path/configs"); //配置目录
+$smarty->setPluginsDir("/path/plugins"); //插件目录
+$smarty->caching = true; //开始缓存
+$smarty->cache_lifetime = 120; // 缓存时间
+
+// 程序中使用
+$name = 'smarty';
+$smarty->assign('name',$name);//传参到模板
+$smarty->display('index.tpl');//渲染（展示模板）
+
+//index.tpl
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+hello ! { $name }
+
+</body>
+</html>
+```
+
+所以你项目的目录结构可能是这样
+
+![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/smarty_dir.png)
+
+通过以上示例，我们发现`Smarty`是有自定义自己的配置、插件、编译、缓存、模板目录功能的,虽然
+配置、和插件功能用到的几率比较低,但是think-smarty的封装不会阉割smarty的功能,
+因此think-smarty对配置、插件、编译、缓存、模板目录在thinkphp6.x中做了最佳实践。
+
+
+对于缓存和编译目录,放到了项目的`runtime`目录方便项目上线时只要统一给该目录设置
+读写权限即可。
 
 ```
-\ajiho\middleware\SmartyInit::class
+├─app
+├─config
+├─extend
+├─public
+├─route
+├─runtime
+│ └─templates_cache(用于存放smarty的缓存文件)
+│ └─templates_compile(用于存放smarty的编译文件)
+│
 ```
 
-## 基本演示
+如果是多应用模式,会自动加上应用名称作为区分
 
-启用smarty
+```
+├─app
+├─config
+├─extend
+├─public
+├─route
+├─runtime
+│ └─index
+│   └─templates_cache
+│   └─templates_compile
+│ └─admin
+│   └─templates_cache
+│   └─templates_compile
+│
+```
 
-![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/install.png)
+## 模板路径
 
-直接输出视图
+对于模板、配置、插件目录默认情况下，框架会自动定位你的模板文件路径，优先定位应用目
+录下的`view`目录作为smarty的工作空间目录
 
-![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/bbe8ccb1453d4e21958f6a2a81f41c67.png)
+### 单应用模式
 
-视图页面
+```
+├─app
+│   └─controller
+│   └─view (smarty工作空间目录)
+│     ├─templates        smarty模板目录
+│     │  └─index.tpl     index模板文件
+│     ├─configs          smarty配置目录
+│     ├─plugins          smarty插件目录
+```
 
-![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/711526df431440bcadc30349d272c688.png)
+### 多应用模式
 
-输出效果
+```
+├─app
+│  ├─app1 （应用1）
+│  │   └─view（smarty工作空间目录）
+│  │   	 ├─templates         smarty模板目录
+│  │     │  └─index.tpl      index模板文件
+│  │ 	 ├─configs           smarty配置目录
+│  │ 	 ├─plugins           smarty插件目录
+│  │ 
+│  └─ app2... （更多应用）
+```
 
-![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/72712a7d16af4d308398c5e9bed47811.png)
+第二种方式是视图文件和应用类库文件完全分离，统一放置在根目录下的view目录。
 
-报错
+### 单应用模式
 
-![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/5fb01b9eefed4d57a43cd5811459a450.png)
-![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/d612aaa13c4049cbb5a8edb40a96197f.png)
+```
+├─view                     smarty工作空间目录
+│   ├─templates            smarty模板目录
+│   │  ├─layout            布局目录(示例)
+│   │  │ └─main.tpl        用于被继承的父模板文件(示例)
+│   │  ├─user              用户模块(示例)
+│   │  │ └─index.tpl       用户列表模板文件(示例)
+│   │  ├─index.tpl         index模板文件(示例)
+│   ├─configs              smarty配置目录
+│   ├─plugins              smarty插件目录
+```
 
+### 多应用模式
+
+```
+├─view                      视图文件目录
+│  ├─index（应用名称）        smarty工作空间目录
+│  │   ├─templates          smarty模板目录
+│  │   │  └─index.tpl       index模板文件
+│  │   ├─configs            smarty配置目录
+│  │   ├─plugins            smarty插件目录
+│  ├─admin（应用名称）        smarty工作空间目录
+│  │   ├─templates          smarty模板目录
+│  │   │  └─index.tpl       index模板文件
+│  │   ├─configs            smarty配置目录
+│  │   ├─plugins            smarty插件目录
+```
+
+## 模板渲染
+
+模板渲染的最典型用法是直接使用smarty对象提供的`fetch`方法,`think-smarty`
+提供了一个便捷的`smarty_fetch`方法
+
+```php
+<?php
+namespace app\index\controller;
+
+class Index
+{
+    public function index()
+    {   
+        //给模板赋值
+        smarty_assign('name','smarty');
+        return smarty_fetch('index.tpl');
+    }
+}
+```
+
+使用`smarty_display`方法来简化输出(PS:该方法必须放在最后一行)
+
+```php
+<?php
+namespace app\index\controller;
+
+class Index
+{
+    public function index()
+    {   
+        $name = 'smarty';
+        smarty_display('index.tpl',compact('name'));
+    }
+}
+```
+
+跨应用渲染模板
+```php
+smarty_display('index@user/index.tpl');
+```
+
+
+
+
+如果你的模板文件位置比较特殊或者需要自定义模板文件的位置，可以采用下面的方式处理。
+
+```php
+//smarty_display('/index.tpl');
+smarty_display('/template/public/menu.tpl');
+```
+
+只要通过`/`开头的表示从整个项目根目录开始查找模板文件
+
+```
+├─app
+├─config
+├─extend
+├─public
+├─route
+├─template
+│ └─public
+│   └─menu.tpl     (/template/public/menu.tpl)
+├─index.tpl        (/index.tpl)
+│
+```
+
+
+## 资源类型
+
+我们知道Smarty支持指定资源类型渲染
+https://www.smarty.net/docs/zh_CN/resources.tpl
+
+```php
+//明确指定资源类型，等价于smarty_display('index.tpl');
+smarty_display('file:index.tpl');
+```
+
+也支持指定任意的绝对路径
+
+```php
+smarty_display('file:C:/Users/Administrator/Desktop/tp61/index.tpl');
+// 包括可以指定非项目路径,可以是磁盘上任何的绝对路径
+smarty_display('file:G:/templates/index.tpl');
+```
+
+直接渲染内容
+```php
+$content = '<{$name}>-<{$email}>';
+smarty_display('string:'.$content,['name'=>'ajiho','email'=>'lujiahao@88.com']);
+```
 
 # 反馈
 
