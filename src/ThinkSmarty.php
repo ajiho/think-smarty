@@ -94,7 +94,7 @@ class ThinkSmarty extends Smarty
         //设置配置路径
         $this->setConfigDir($this->config['configs_path']);
         //插件目录
-        $this->setPluginsDir($this->config['plugins_path']);
+        $this->addPluginsDir($this->config['plugins_path']);
 
 
         if (strpos($template, ':') === false) { //说明没有明确指定资源类型
