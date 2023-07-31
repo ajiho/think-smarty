@@ -12,7 +12,6 @@
 php的模板引擎([ThinkTemplate](https://www.kancloud.cn/manual/think-template/1286403))
 在`phpstorm`中格式化html代码时会各种代码错乱和报错,开发起来特别闹心
 
-
 ### ThinkTemplate
 
 ![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/think-template.gif)
@@ -67,10 +66,12 @@ return [
     'compile_dir_name' => 'templates_compile',
     // 模板缓存目录名
     'cache_dir_name' => 'templates_cache',
+    // 全局输出替换
+    'tpl_replace_string'  =>  []
 ];
 ```
 
-# 主要方法
+# 助手函数
 
 | 函数名            | 描述                                 |
 |----------------|------------------------------------|
@@ -93,33 +94,38 @@ return [
 
 ## 模板赋值
 
-模板中的变量（除了一些系统变量外）必须先进行模板赋值后才能使用，
-可以使用smarty实例对象的`assign`方法进行全局模板变量赋值，`think-smarty`提供了
-一个助手函数`smarty_assign`
 
 ```php
 <?php
 namespace app\index\controller;
 
-class Index
+use app\BaseController;
+
+class Index extends BaseController
 {
     public function index()
     {   
+        //通过应用实例获取smarty给模板赋值
+        //$this->app->smarty->assign('name','think-smarty');
+        //$this->app->smarty->assign('email','lujiahao@88.com');
         
-        // 给模板赋值
+        //使用应用助手函数app('smarty')
+        //app('smarty')->assign('name','think-smarty');
+        //app('smarty')->assign('name','think-smarty');
+            
+        // 上面的方式还是太长,通过助手函数smarty()
         // smarty()->assign('name','think-smarty');
         // smarty()->assign('email','lujiahao@88.com');
         
-        // 使用助手函数
+        // 上面的方式还是太长,直接通过助手函数smarty_assign()一步到位
         // smarty_assign('name','think-smarty');
         // smarty_assign('email','lujiahao@88.com');
         
-        // 或者批量赋值
+        // 一个一个赋值太麻烦,直接批量赋值
         smarty_assign([
             'name'  => 'think-smarty',
             'email' => 'lujiahao@88.com'
         ]);
-        
         
         // 模板输出
         return smarty_fetch('index.tpl');
@@ -127,26 +133,25 @@ class Index
 }
 ```
 
-
 ## 保留变量
 
-`Smarty`提供了一个保留变量`$smarty`,可以用于一些原生php的常用的系统变量
+`Smarty`提供了一个保留变量`$smarty`,可以用于一些原生php的常用的系统变量的获取
 
 ```php
 <{ $smarty.const.PHP_VERSION }>
 <{ $smarty.server.SERVER_NAME }>
-<{ $smarty.get.page|default:'get' }>
-<{ $smarty.post.page|default:'post' }>
+<{ $smarty.get.page}>
+<{ $smarty.post.page}>
 <{ $smarty.server.SCRIPT_NAME }>
-<{ $smarty.env.PATH|default:'env' }>
-<{ $smarty.session.user_id|default:'session' }>
-<{ $smarty.cookies.name|default:'cookies' }>
-<{ $smarty.request.username|default:'from merged get/post/cookies/server/env' }>
+<{ $smarty.env.PATH}>
+<{ $smarty.session.user_id}>
+<{ $smarty.cookies.name}>
+<{ $smarty.request.username}>
 ```
 
 但是对于thinkphp框架我们知道它的`SESSION`或者一些路由参数，我们用原生的php
 是获取不到的，必须要用框架的方法才能获取，因此`think-smarty`也保留了一个
-全局变量`$think`(相当于应用实例),我们可以用它来快速获取到框架相关的东西
+全局变量`$think`(相当于应用实例$app),我们可以用它来快速获取到框架相关的东西
 
 ```php
 <{ $think->request->param('name') }>
@@ -192,9 +197,6 @@ class Index extends BaseController
 因此你要是想对你的应用进行全局变量的赋值,可以创建一个BaseController控制器在构
 造函数中使用`smarty_assign`方法赋值即可
 
-
-
-
 # 模板渲染
 
 为了更好的理解`think-smarty`设计的目录结构，我们先看一看,`Smarty`的原生集成
@@ -215,11 +217,10 @@ $smarty->caching = true; //开始缓存
 $smarty->cache_lifetime = 120; // 缓存时间
 
 // 程序中使用
-$name = 'smarty';
-$smarty->assign('name',$name);//传参到模板
+$smarty->assign('name','this is smarty');//传参到模板
 $smarty->display('index.tpl');//渲染（展示模板）
 
-//index.tpl
+// 渲染设置的模板路径下的tpl文件 path/templates/index.tpl
 <!doctype html>
 <html lang="zh">
 <head>
@@ -244,7 +245,6 @@ hello ! { $name }
 通过以上示例，我们发现`Smarty`是有自定义自己的配置、插件、编译、缓存、模板目录功能的,虽然
 配置、和插件功能用到的几率比较低,但是think-smarty的封装不会阉割smarty的功能,
 因此think-smarty对配置、插件、编译、缓存、模板目录在thinkphp6.x中做了最佳实践。
-
 
 对于缓存和编译目录,放到了项目的`runtime`目录方便项目上线时只要统一给该目录设置
 读写权限即可。
@@ -281,7 +281,7 @@ hello ! { $name }
 
 ## 模板路径
 
-对于模板、配置、插件目录默认情况下，框架会自动定位你的模板文件路径，优先定位应用目
+对于模板、配置、插件目录默认情况下，think-smarty会自动定位，优先定位应用目
 录下的`view`目录作为smarty的工作空间目录
 
 ### 单应用模式
@@ -344,52 +344,69 @@ hello ! { $name }
 
 ## 模板渲染
 
-模板渲染的最典型用法是直接使用smarty对象提供的`fetch`方法,`think-smarty`
-提供了一个便捷的`smarty_fetch`方法
 
 ```php
 <?php
 namespace app\index\controller;
 
-class Index
+use app\BaseController;
+
+class Index extends BaseController
 {
     public function index()
     {   
-        //给模板赋值
-        smarty_assign('name','smarty');
+        //方式一
+        $this->app->smarty->assign('name','think-smarty')
+        return $this->app->smarty->fetch('index.tpl')
+        
+        //方式二
+        app('smarty')->assign('name','think-smarty')
+        return app('smarty')->fetch('index.tpl')
+        
+        //方式三
+        smarty_assign('name','think-smarty');
         return smarty_fetch('index.tpl');
+        
+        //方式四
+        $name = 'think-smarty';
+        return smarty_fetch('index.tpl',compact('name'));
+        
+        
+        //方式五
+        $name = 'think-smarty';
+        return smarty_display('index.tpl',compact('name'));
     }
 }
 ```
 
-使用`smarty_display`方法来简化输出(PS:该方法必须放在最后一行)
+PS:`smarty_display()`方法如果是在最后一行可以省略`return`
 
 ```php
 <?php
 namespace app\index\controller;
 
-class Index
+use app\BaseController;
+
+class Index extends BaseController
 {
     public function index()
     {   
-        $name = 'smarty';
+        $name = 'think-smarty';
         smarty_display('index.tpl',compact('name'));
     }
 }
 ```
+
 
 跨应用渲染模板
 ```php
 smarty_display('index@user/index.tpl');
 ```
 
-
-
-
-如果你的模板文件位置比较特殊或者需要自定义模板文件的位置，可以采用下面的方式处理。
+如果你的模板文件位置比较特殊或者需要自定义模板文件的位置，可以采用下面的方式处理
 
 ```php
-//smarty_display('/index.tpl');
+smarty_display('/index.tpl');
 smarty_display('/template/public/menu.tpl');
 ```
 
@@ -408,7 +425,6 @@ smarty_display('/template/public/menu.tpl');
 │
 ```
 
-
 ## 资源类型
 
 我们知道Smarty支持指定资源类型渲染
@@ -422,21 +438,24 @@ smarty_display('file:index.tpl');
 也支持指定任意的绝对路径
 
 ```php
-smarty_display('file:C:/Users/Administrator/Desktop/tp61/index.tpl');
+smarty_display('file:C:/Users/Administrator/Desktop/tp6/index.tpl');
 // 包括可以指定非项目路径,可以是磁盘上任何的绝对路径
 smarty_display('file:G:/templates/index.tpl');
 ```
 
 直接渲染内容
+
 ```php
 $content = '<{$name}>-<{$email}>';
+//下次使用时编译
 smarty_display('string:'.$content,['name'=>'ajiho','email'=>'lujiahao@88.com']);
+//每次都编译
+smarty_display('eval:'.$content,['name'=>'ajiho','email'=>'lujiahao@88.com']);
 ```
 
 # 输出替换
 
-如果是tp5的用户在原本的thinkphp自带的模板引擎可能会用到如下配置进行
-全局的静态资源的路径的替换。
+## smarty.php配置文件中添加替换规则即可
 
 ```php
 'tpl_replace_string'  =>  [
@@ -445,10 +464,9 @@ smarty_display('string:'.$content,['name'=>'ajiho','email'=>'lujiahao@88.com']);
 ]
 ```
 
-那么在think-smarty中实现的方法特别多，你可以直接在基础控制器进行全局变量的
-赋值，也可以利用smarty的过滤器,也可以使用smarty的配置功能
 
-这里推荐使用smarty的配置功能
+## 利用smarty的特性-conf配置文件
+
 
 ```
 ├─view                     smarty工作空间目录
@@ -467,6 +485,7 @@ __JS__  = '/static/javascript'
 ```
 
 在tpl模板中使用方式有两种方法来读取配置
+
 ```php
 // 加载配置
 <{ config_load file="static_path.conf" }>
@@ -476,7 +495,6 @@ __JS__  = '/static/javascript'
 //使用配置,方式二
 <{ $smarty.config.__STATIC__ }>
 ```
-
 
 
 # 反馈
