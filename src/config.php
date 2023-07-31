@@ -23,4 +23,6 @@ return [
     'compile_dir_name' => 'templates_compile',
     // 模板缓存目录名
     'cache_dir_name' => 'templates_cache',
+    // 全局替换
+    'tpl_replace_string'  =>  []
 ];

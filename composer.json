@@ -33,7 +33,7 @@
   "extra": {
     "think": {
       "services": [
-        "ajiho\\smarty\\SmartyService"
+        "ajiho\\smarty\\Service"
       ],
       "config": {
         "smarty": "src/config.php"

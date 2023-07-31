@@ -8,7 +8,7 @@ if (!function_exists('smarty')) {
 
     function smarty()
     {
-        return app('think_smarty');
+        return app('smarty');
     }
 }
 
@@ -38,3 +38,6 @@ if (!function_exists('smarty_display')) {
         return smarty()->display($template, $cache_id, $compile_id, $parent);
     }
 }
+
+
+

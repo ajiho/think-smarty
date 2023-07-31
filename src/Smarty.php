@@ -2,12 +2,13 @@
 
 namespace ajiho\smarty;
 
+use Smarty_Internal_Template;
 use think\App;
 use think\Exception;
 use think\Response;
 use think\facade\Config;
-use Smarty;
-class ThinkSmarty extends Smarty
+
+class Smarty extends \Smarty
 {
 
     private $app;
@@ -36,6 +37,9 @@ class ThinkSmarty extends Smarty
         'compile_dir_name' => 'templates_compile',
         // 模板缓存目录名
         'cache_dir_name' => 'templates_cache',
+        // 全局替换
+        'tpl_replace_string'  =>  []
+
     ];
 
     public function __construct(App $app)
@@ -65,6 +69,12 @@ class ThinkSmarty extends Smarty
         //think-smarty保留变量think,为了快速在模板中使用tp的方法
         $this->assign('think', $app);
 
+        //注册全局过滤器,实现类似thinkphp官方的
+        $this->registerFilter("output", [Smarty::class, 'filter']);
+    }
+
+    private static function filter($tpl_output, Smarty_Internal_Template $template){
+        return strtr($tpl_output, config('smarty.tpl_replace_string'));
     }
 
 
