@@ -73,7 +73,7 @@ class Smarty extends \Smarty
         $this->registerFilter("output", [Smarty::class, 'filter']);
     }
 
-    private static function filter($tpl_output, Smarty_Internal_Template $template){
+    public static function filter($tpl_output, Smarty_Internal_Template $template){
         return strtr($tpl_output, config('smarty.tpl_replace_string'));
     }
 
