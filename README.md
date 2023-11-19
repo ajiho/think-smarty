@@ -14,11 +14,11 @@ php的模板引擎([ThinkTemplate](https://www.kancloud.cn/manual/think-template
 
 ### ThinkTemplate
 
-![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/think-template.gif)
+![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/.gitee/img/think-template.gif)
 
 ### think-smarty
 
-![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/think-smarty.gif)
+![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/.gitee/img/think-smarty.gif)
 
 ## think-smarty的优点
 
@@ -38,7 +38,7 @@ composer require ajiho/think-smarty
 
 # 配置文件
 
-/config/smarty.php
+安装完毕后会自动生成`/config/smarty.php`
 
 ```php
 <?php
@@ -71,6 +71,16 @@ return [
 ];
 ```
 
+# phpstorm设置
+
+然后根据配置文件`smarty.php`对`phpstorm`进行相应的设置,就可以舒适的开发啦
+
+`ctrl+alt+s`，搜索`smarty`就可以打开如下设置面板
+
+![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/.gitee/img/phpstorm-setting.png)
+
+注意:设置后要重启phpstorm才会生效
+
 # 助手函数
 
 | 函数名            | 描述                                 |
@@ -80,20 +90,9 @@ return [
 | smarty_fetch   | 返回一个模板解析后的字符串                      |
 | smarty_display | 直接输出模板到客户端                         |
 
-# phpstorm设置
-
-然后根据配置文件`smarty.php`对`phpstorm`进行相应的设置,就可以舒适的开发啦
-
-`ctrl+alt+s`，搜索`smarty`就可以打开如下设置面板
-
-![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/phpstorm-setting.png)
-
-注意:设置后要重启phpstorm才会生效
-
 # 模板变量
 
 ## 模板赋值
-
 
 ```php
 <?php
@@ -238,13 +237,13 @@ hello ! { $name }
 </html>
 ```
 
-所以你项目的目录结构可能是这样
+所以你项目的目录结构可能是下面这样
 
-![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/img/smarty_dir.png)
+![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/.gitee/img/smarty_dir.png)
 
 通过以上示例，我们发现`Smarty`是有自定义自己的配置、插件、编译、缓存、模板目录功能的,虽然
-配置、和插件功能用到的几率比较低,但是think-smarty的封装不会阉割smarty的功能,
-因此think-smarty对配置、插件、编译、缓存、模板目录在thinkphp6.x中做了最佳实践。
+配置、和插件功能用到的几率比较低,但是`think-smarty`的封装不会阉割smarty的功能,
+因此`think-smarty`对配置、插件、编译、缓存、模板目录在thinkphp6.x中做了**最佳实践**。
 
 对于缓存和编译目录,放到了项目的`runtime`目录方便项目上线时只要统一给该目录设置
 读写权限即可。
@@ -344,7 +343,6 @@ hello ! { $name }
 
 ## 模板渲染
 
-
 ```php
 <?php
 namespace app\index\controller;
@@ -397,8 +395,8 @@ class Index extends BaseController
 }
 ```
 
-
 跨应用渲染模板
+
 ```php
 smarty_display('index@user/index.tpl');
 ```
@@ -464,9 +462,7 @@ smarty_display('eval:'.$content,['name'=>'ajiho','email'=>'lujiahao@88.com']);
 ]
 ```
 
-
 ## 利用smarty的特性-conf配置文件
-
 
 ```
 ├─view                     smarty工作空间目录
@@ -495,7 +491,6 @@ __JS__  = '/static/javascript'
 //使用配置,方式二
 <{ $smarty.config.__STATIC__ }>
 ```
-
 
 # 反馈
 
