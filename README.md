@@ -14,11 +14,13 @@ php的模板引擎([ThinkTemplate](https://www.kancloud.cn/manual/think-template
 
 ### ThinkTemplate
 
-![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/.gitee/img/think-template.gif)
+
+
+![图片备注](https://raw.githubusercontent.com/ajiho/think-smarty/master/assets/img/think-template.gif)
 
 ### think-smarty
 
-![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/.gitee/img/think-smarty.gif)
+![图片备注](https://raw.githubusercontent.com/ajiho/think-smarty/master/assets/img/think-smarty.gif)
 
 ## think-smarty的优点
 
@@ -77,7 +79,7 @@ return [
 
 `ctrl+alt+s`，搜索`smarty`就可以打开如下设置面板
 
-![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/.gitee/img/phpstorm-setting.png)
+![图片备注](https://raw.githubusercontent.com/ajiho/think-smarty/master/assets/img/phpstorm-setting.png)
 
 注意:设置后要重启phpstorm才会生效
 
@@ -239,7 +241,7 @@ hello ! { $name }
 
 所以你项目的目录结构可能是下面这样
 
-![图片备注](https://gitee.com/ajiho/think-smarty/raw/master/.gitee/img/smarty_dir.png)
+![图片备注](https://raw.githubusercontent.com/ajiho/think-smarty/master/assets/img/smarty_dir.png)
 
 通过以上示例，我们发现`Smarty`是有自定义自己的配置、插件、编译、缓存、模板目录功能的,虽然
 配置、和插件功能用到的几率比较低,但是`think-smarty`的封装不会阉割smarty的功能,
