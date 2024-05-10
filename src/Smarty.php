@@ -61,11 +61,6 @@ class Smarty extends \Smarty
         $this->setLeftDelimiter($this->config['left_delimiter']);
         //右分隔符配置
         $this->setRightDelimiter($this->config['right_delimiter']);
-        //设置缓存路径
-        $this->setCacheDir($app->getRuntimePath() . $this->config['cache_dir_name'] . DIRECTORY_SEPARATOR);
-        //设置编译目录
-        $this->setCompileDir($app->getRuntimePath() . $this->config['compile_dir_name'] . DIRECTORY_SEPARATOR);
-
         //think-smarty保留变量think,为了快速在模板中使用tp的方法
         $this->assign('think', $app);
 
@@ -106,6 +101,11 @@ class Smarty extends \Smarty
         $this->setConfigDir($this->config['configs_path']);
         //插件目录
         $this->addPluginsDir($this->config['plugins_path']);
+        //设置缓存路径
+        $this->setCacheDir($this->app->getRuntimePath() . $this->config['cache_dir_name'] . DIRECTORY_SEPARATOR);
+        //设置编译目录
+        $this->setCompileDir($this->app->getRuntimePath() . $this->config['compile_dir_name'] . DIRECTORY_SEPARATOR);
+
 
 
         if (strpos($template, ':') === false) { //说明没有明确指定资源类型
