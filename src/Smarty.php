@@ -38,7 +38,7 @@ class Smarty extends \Smarty
         // 模板缓存目录名
         'cache_dir_name' => 'templates_cache',
         // 全局替换
-        'tpl_replace_string'  =>  []
+        'tpl_replace_string' => []
 
     ];
 
@@ -47,7 +47,7 @@ class Smarty extends \Smarty
 
         // 调用父类的构造方法
         parent::__construct();
-        
+
         $this->app = $app;
         //配置合并
         $this->config = array_merge($this->config, Config::get('smarty'));
@@ -73,7 +73,8 @@ class Smarty extends \Smarty
         $this->registerFilter("output", [Smarty::class, 'filter']);
     }
 
-    public static function filter($tpl_output, Smarty_Internal_Template $template){
+    public static function filter($tpl_output, Smarty_Internal_Template $template)
+    {
         return strtr($tpl_output, config('smarty.tpl_replace_string'));
     }
 
@@ -111,7 +112,7 @@ class Smarty extends \Smarty
             $template = $this->parseTemplate($template);
             //模板不存在 抛出异常
             if (!is_file($template)) {
-                throw new Exception('think-smarty:Unable to load template ' . $template);
+                throw new Exception('Unable to load template ' . $template);
             }
         }
 
@@ -119,7 +120,7 @@ class Smarty extends \Smarty
             // 调用父类的 fetch() 方法
             return parent::fetch($template, $cacheId, $compileId, $parent);
         } catch (\Exception $e) {
-            throw new Exception('think-smarty:' . $e->getMessage());
+            throw new Exception($e->getMessage());
         }
 
     }
@@ -163,7 +164,7 @@ class Smarty extends \Smarty
             $path = $this->config['templates_path'] . DIRECTORY_SEPARATOR;
         }
 
-        if (strpos($template, '/') === 0 ) {
+        if (strpos($template, '/') === 0) {
             return $this->app->getRootPath() . str_replace('/', DIRECTORY_SEPARATOR, ltrim($template, '/'));
         } else {
             return $path . str_replace('/', DIRECTORY_SEPARATOR, $template);

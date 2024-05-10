@@ -101,35 +101,40 @@ return [
 namespace app\index\controller;
 
 use app\BaseController;
+use ajiho\smarty\facade\Smarty;
 
 class Index extends BaseController
 {
     public function index()
     {   
-        //通过应用实例获取smarty给模板赋值
-        //$this->app->smarty->assign('name','think-smarty');
-        //$this->app->smarty->assign('email','lujiahao@88.com');
+        // 通过应用实例获取smarty给模板赋值
+        $this->app->smarty->assign('name','think-smarty');
+        $this->app->smarty->assign('email','lujiahao@88.com');
         
-        //使用应用助手函数app('smarty')
-        //app('smarty')->assign('name','think-smarty');
-        //app('smarty')->assign('name','think-smarty');
+        // 使用应用助手函数app('smarty')
+        app('smarty')->assign('name','think-smarty');
+        app('smarty')->assign('name','think-smarty');
             
-        // 上面的方式还是太长,通过助手函数smarty()
-        // smarty()->assign('name','think-smarty');
-        // smarty()->assign('email','lujiahao@88.com');
+         // 上面的方式还是太长,通过助手函数smarty()
+         smarty()->assign('name','think-smarty');
+         smarty()->assign('email','lujiahao@88.com');
         
-        // 上面的方式还是太长,直接通过助手函数smarty_assign()一步到位
-        // smarty_assign('name','think-smarty');
-        // smarty_assign('email','lujiahao@88.com');
+         // 上面的方式还是太长,直接通过助手函数smarty_assign()一步到位
+         smarty_assign('name','think-smarty');
+         smarty_assign('email','lujiahao@88.com');
         
-        // 一个一个赋值太麻烦,直接批量赋值
-        smarty_assign([
+         // 一个一个赋值太麻烦,直接批量赋值
+         smarty_assign([
             'name'  => 'think-smarty',
             'email' => 'lujiahao@88.com'
-        ]);
+         ]);
+        
+         // v2.0.2新增一个门脸类操作，该门脸类可以调用Smarty提供的所有方法
+         Smarty::assign('name','smarty')
         
         // 模板输出
         return smarty_fetch('index.tpl');
+        return Smarty::fetch('index.tpl') //v2.0.2+新增
     }
 }
 ```
